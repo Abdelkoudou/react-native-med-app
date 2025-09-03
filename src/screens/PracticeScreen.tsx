@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, SafeAreaView, ScrollView } from 'react-native';
+import { View, Text, SafeAreaView, ScrollView, StyleSheet } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp } from '@react-navigation/native';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/Card';
@@ -18,9 +18,9 @@ export default function PracticeScreen({ navigation, route }: Props) {
   const { module, lesson } = route.params;
 
   return (
-    <SafeAreaView className="flex-1 bg-white">
-      <ScrollView className="flex-1 p-4">
-        <View className="flex-row items-center justify-between mb-6">
+    <SafeAreaView style={styles.container}>
+      <ScrollView style={styles.scrollView}>
+        <View style={styles.header}>
           <Button variant="ghost" size="sm" onPress={() => navigation.goBack()}>
             <Text>← Back</Text>
           </Button>
@@ -29,18 +29,18 @@ export default function PracticeScreen({ navigation, route }: Props) {
         <Card>
           <CardHeader>
             <CardTitle>
-              <Text className="text-xl font-bold text-gray-900">Practice Session</Text>
+              <Text style={styles.title}>Practice Session</Text>
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <Text className="text-gray-600 mb-4">Module: {module}</Text>
-            {lesson && <Text className="text-gray-600 mb-4">Lesson: {lesson}</Text>}
+            <Text style={styles.moduleText}>Module: {module}</Text>
+            {lesson && <Text style={styles.moduleText}>Lesson: {lesson}</Text>}
             
-            <View className="items-center py-8">
-              <Text className="text-lg text-gray-600 text-center mb-4">
+            <View style={styles.placeholder}>
+              <Text style={styles.placeholderText}>
                 Practice functionality will be implemented here.
               </Text>
-              <Text className="text-sm text-gray-500 text-center">
+              <Text style={styles.placeholderSubtext}>
                 This will include MCQ questions, progress tracking, and scoring.
               </Text>
             </View>
@@ -50,3 +50,44 @@ export default function PracticeScreen({ navigation, route }: Props) {
     </SafeAreaView>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#FFFFFF',
+  },
+  scrollView: {
+    flex: 1,
+    padding: 16,
+  },
+  header: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginBottom: 24,
+  },
+  title: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#111827',
+  },
+  moduleText: {
+    color: '#6B7280',
+    marginBottom: 16,
+  },
+  placeholder: {
+    alignItems: 'center',
+    paddingVertical: 32,
+  },
+  placeholderText: {
+    fontSize: 18,
+    color: '#6B7280',
+    textAlign: 'center',
+    marginBottom: 16,
+  },
+  placeholderSubtext: {
+    fontSize: 14,
+    color: '#9CA3AF',
+    textAlign: 'center',
+  },
+});

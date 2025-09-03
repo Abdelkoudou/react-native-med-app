@@ -1,6 +1,5 @@
 import React from 'react';
-import { TextInput, Text, View } from 'react-native';
-import { cn } from '../../utils/cn';
+import { TextInput, Text, View, StyleSheet } from 'react-native';
 
 interface InputProps {
   value: string;
@@ -8,13 +7,13 @@ interface InputProps {
   placeholder?: string;
   secureTextEntry?: boolean;
   editable?: boolean;
-  className?: string;
+  style?: any;
   keyboardType?: 'default' | 'email-address' | 'numeric' | 'phone-pad';
 }
 
 interface LabelProps {
   children: React.ReactNode;
-  className?: string;
+  style?: any;
 }
 
 export function Input({
@@ -23,7 +22,7 @@ export function Input({
   placeholder,
   secureTextEntry = false,
   editable = true,
-  className,
+  style,
   keyboardType = 'default'
 }: InputProps) {
   return (
@@ -34,20 +33,43 @@ export function Input({
       secureTextEntry={secureTextEntry}
       editable={editable}
       keyboardType={keyboardType}
-      className={cn(
-        "border border-gray-300 rounded-md px-3 py-2 text-base bg-white text-gray-900",
-        !editable && "bg-gray-100 text-gray-500",
-        className
-      )}
+      style={[
+        styles.input,
+        !editable && styles.inputDisabled,
+        style
+      ]}
       placeholderTextColor="#9CA3AF"
     />
   );
 }
 
-export function Label({ children, className }: LabelProps) {
+export function Label({ children, style }: LabelProps) {
   return (
-    <Text className={cn("text-sm font-medium text-gray-700 mb-1", className)}>
+    <Text style={[styles.label, style]}>
       {children}
     </Text>
   );
 }
+
+const styles = StyleSheet.create({
+  input: {
+    borderWidth: 1,
+    borderColor: '#D1D5DB',
+    borderRadius: 6,
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+    fontSize: 16,
+    backgroundColor: '#FFFFFF',
+    color: '#111827',
+  },
+  inputDisabled: {
+    backgroundColor: '#F3F4F6',
+    color: '#6B7280',
+  },
+  label: {
+    fontSize: 14,
+    fontWeight: '500',
+    color: '#374151',
+    marginBottom: 4,
+  },
+});

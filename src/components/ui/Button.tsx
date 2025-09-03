@@ -18,62 +18,16 @@ export function Button({
   disabled = false,
   style 
 }: ButtonProps) {
-  const getButtonStyle = () => {
-    const baseStyle = [styles.button];
-    
-    switch (variant) {
-      case 'outline':
-        baseStyle.push(styles.buttonOutline);
-        break;
-      case 'ghost':
-        baseStyle.push(styles.buttonGhost);
-        break;
-      default:
-        baseStyle.push(styles.buttonDefault);
-    }
-    
-    switch (size) {
-      case 'sm':
-        baseStyle.push(styles.buttonSm);
-        break;
-      case 'lg':
-        baseStyle.push(styles.buttonLg);
-        break;
-      case 'icon':
-        baseStyle.push(styles.buttonIcon);
-        break;
-    }
-    
-    if (disabled) {
-      baseStyle.push(styles.buttonDisabled);
-    }
-    
-    return baseStyle;
-  };
-
-  const getTextStyle = () => {
-    const baseStyle = [styles.buttonText];
-    
-    switch (variant) {
-      case 'outline':
-      case 'ghost':
-        baseStyle.push(styles.buttonTextSecondary);
-        break;
-      default:
-        baseStyle.push(styles.buttonTextPrimary);
-    }
-    
-    return baseStyle;
-  };
-
   return (
     <TouchableOpacity
-      style={[...getButtonStyle(), style]}
+      style={[styles.button, styles[variant], styles[size], disabled && styles.disabled, style]}
       onPress={onPress}
       disabled={disabled}
     >
       {typeof children === 'string' ? (
-        <Text style={getTextStyle()}>{children}</Text>
+        <Text style={[styles.buttonText, variant !== 'default' && styles.secondaryText]}>
+          {children}
+        </Text>
       ) : (
         children
       )}
@@ -90,39 +44,37 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingVertical: 8,
   },
-  buttonDefault: {
+  default: {
     backgroundColor: '#3B82F6',
   },
-  buttonOutline: {
+  outline: {
     backgroundColor: 'transparent',
     borderWidth: 1,
     borderColor: '#D1D5DB',
   },
-  buttonGhost: {
+  ghost: {
     backgroundColor: 'transparent',
   },
-  buttonSm: {
+  sm: {
     paddingHorizontal: 12,
     paddingVertical: 6,
   },
-  buttonLg: {
+  lg: {
     paddingHorizontal: 24,
     paddingVertical: 12,
   },
-  buttonIcon: {
+  icon: {
     padding: 8,
   },
-  buttonDisabled: {
+  disabled: {
     opacity: 0.5,
   },
   buttonText: {
     fontSize: 16,
     fontWeight: '500',
-  },
-  buttonTextPrimary: {
     color: '#FFFFFF',
   },
-  buttonTextSecondary: {
+  secondaryText: {
     color: '#374151',
   },
 });

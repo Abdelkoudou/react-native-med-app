@@ -1,32 +1,42 @@
 import React from 'react';
-import { View, Text } from 'react-native';
-import { cn } from '../../utils/cn';
+import { View, Text, StyleSheet } from 'react-native';
 
 interface AlertProps {
   children: React.ReactNode;
-  className?: string;
+  style?: any;
 }
 
 interface AlertDescriptionProps {
   children: React.ReactNode;
-  className?: string;
+  style?: any;
 }
 
-export function Alert({ children, className }: AlertProps) {
+export function Alert({ children, style }: AlertProps) {
   return (
-    <View className={cn(
-      "border border-red-200 bg-red-50 rounded-md p-3",
-      className
-    )}>
+    <View style={[styles.alert, style]}>
       {children}
     </View>
   );
 }
 
-export function AlertDescription({ children, className }: AlertDescriptionProps) {
+export function AlertDescription({ children, style }: AlertDescriptionProps) {
   return (
-    <Text className={cn("text-sm text-red-700", className)}>
+    <Text style={[styles.alertDescription, style]}>
       {children}
     </Text>
   );
 }
+
+const styles = StyleSheet.create({
+  alert: {
+    borderWidth: 1,
+    borderColor: '#FECACA',
+    backgroundColor: '#FEF2F2',
+    borderRadius: 6,
+    padding: 12,
+  },
+  alertDescription: {
+    fontSize: 14,
+    color: '#B91C1C',
+  },
+});

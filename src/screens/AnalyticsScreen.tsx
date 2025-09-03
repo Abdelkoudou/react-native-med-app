@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, SafeAreaView, ScrollView } from 'react-native';
+import { View, Text, SafeAreaView, ScrollView, StyleSheet } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
@@ -13,9 +13,9 @@ interface Props {
 
 export default function AnalyticsScreen({ navigation }: Props) {
   return (
-    <SafeAreaView className="flex-1 bg-white">
-      <ScrollView className="flex-1 p-4">
-        <View className="flex-row items-center justify-between mb-6">
+    <SafeAreaView style={styles.container}>
+      <ScrollView style={styles.scrollView}>
+        <View style={styles.header}>
           <Button variant="ghost" size="sm" onPress={() => navigation.goBack()}>
             <Text>← Back</Text>
           </Button>
@@ -24,16 +24,16 @@ export default function AnalyticsScreen({ navigation }: Props) {
         <Card>
           <CardHeader>
             <CardTitle>
-              <Text className="text-xl font-bold text-gray-900">Performance Analytics</Text>
+              <Text style={styles.title}>Performance Analytics</Text>
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <View className="items-center py-8">
-              <Text className="text-6xl mb-4">📊</Text>
-              <Text className="text-lg text-gray-600 text-center mb-4">
+            <View style={styles.placeholder}>
+              <Text style={styles.emoji}>📊</Text>
+              <Text style={styles.placeholderText}>
                 Analytics functionality will be implemented here.
               </Text>
-              <Text className="text-sm text-gray-500 text-center">
+              <Text style={styles.placeholderSubtext}>
                 This will show detailed performance metrics, charts, and progress over time.
               </Text>
             </View>
@@ -43,3 +43,44 @@ export default function AnalyticsScreen({ navigation }: Props) {
     </SafeAreaView>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#FFFFFF',
+  },
+  scrollView: {
+    flex: 1,
+    padding: 16,
+  },
+  header: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginBottom: 24,
+  },
+  title: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#111827',
+  },
+  placeholder: {
+    alignItems: 'center',
+    paddingVertical: 32,
+  },
+  emoji: {
+    fontSize: 64,
+    marginBottom: 16,
+  },
+  placeholderText: {
+    fontSize: 18,
+    color: '#6B7280',
+    textAlign: 'center',
+    marginBottom: 16,
+  },
+  placeholderSubtext: {
+    fontSize: 14,
+    color: '#9CA3AF',
+    textAlign: 'center',
+  },
+});
